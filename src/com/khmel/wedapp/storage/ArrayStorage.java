@@ -2,21 +2,22 @@ package com.khmel.wedapp.storage;
 
 import com.khmel.wedapp.model.Resume;
 
-public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+import java.util.Arrays;
+
+public class ArrayStorage implements Storage{
+    private static final int STORAGE_LIMIT = 10000;
+    private Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size = 0;
 
     public void clear() {
-        for (int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
     public void save(Resume resume) {
         if (getIndex(resume.getUuid()) != -1) {
             System.out.println("Resume " + resume.getUuid() + " already exist");
-        } else if (size == storage.length) {
+        } else if (size >= STORAGE_LIMIT) {
             System.out.println("Storage overflow");
         } else {
             storage[size] = resume;
@@ -51,9 +52,11 @@ public class ArrayStorage {
     }
 
     public Resume[] getAll() {
-        Resume[] result = new Resume[size];
-        System.arraycopy(storage, 0, result, 0, size);
-        return result;
+        return Arrays.copyOfRange(storage, 0, size);
+    }
+
+    public int size() {
+        return size;
     }
 
     private int getIndex(String uuid) {
@@ -63,9 +66,5 @@ public class ArrayStorage {
             }
         }
         return -1;
-    }
-
-    public int size() {
-        return size;
     }
 }
