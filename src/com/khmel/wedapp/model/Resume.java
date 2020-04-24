@@ -1,14 +1,20 @@
 package com.khmel.wedapp.model;
 
+import java.util.UUID;
+
 public class Resume {
-    private String uuid;
+    private final String uuid;
+
+    public Resume() {
+        this(UUID.randomUUID().toString());
+    }
+
+    public Resume(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getUuid() {
         return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
     @Override
@@ -30,4 +36,6 @@ public class Resume {
     public String toString() {
         return uuid;
     }
+
+
 }

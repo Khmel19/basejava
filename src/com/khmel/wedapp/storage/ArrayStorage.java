@@ -3,10 +3,6 @@ package com.khmel.wedapp.storage;
 import com.khmel.wedapp.model.Resume;
 
 public class ArrayStorage extends AbstractArrayStorage {
-    private static final int STORAGE_LIMIT = 10000;
-    private Resume[] storage = new Resume[STORAGE_LIMIT];
-    private int size = 0;
-
     @Override
     protected void fillDeletedElement(int index) {
         storage[index] = storage[size - 1];

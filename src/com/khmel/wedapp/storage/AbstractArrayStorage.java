@@ -1,5 +1,8 @@
 package com.khmel.wedapp.storage;
 
+import com.khmel.wedapp.exсeption.ExistStorageException;
+import com.khmel.wedapp.exсeption.NotExistStorageException;
+import com.khmel.wedapp.exсeption.StorageException;
 import com.khmel.wedapp.model.Resume;
 
 import java.util.Arrays;
@@ -16,7 +19,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void update(Resume resume) {
         if (getIndex(resume.getUuid()) < 0) {
-            System.out.println("Resume " + resume.getUuid() + " not exist");
+            throw new NotExistStorageException(resume.getUuid());
         } else {
             storage[getIndex(resume.getUuid())] = resume;
         }
@@ -25,9 +28,9 @@ public abstract class AbstractArrayStorage implements Storage {
     public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
         if (index >= 0) {
-            System.out.println("Resume " + resume.getUuid() + " already exist");
+            throw new ExistStorageException(resume.getUuid());
         } else if (size >= STORAGE_LIMIT) {
-            System.out.println("Storage overflow");
+            throw new StorageException("Storage overflow", resume.getUuid());
         } else {
             insertElement(resume, index);
             size++;
@@ -39,7 +42,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index < 0) {
             System.out.println("Resume " + uuid + " not exist");
         } else {
-           fillDeletedElement(index);
+            fillDeletedElement(index);
             storage[size - 1] = null;
             size--;
         }
@@ -56,8 +59,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public Resume get(String uuid) {
         int index = getIndex(uuid);
         if (index == -1) {
-            System.out.println("Resume " + uuid + " not exist");
-            return null;
+            throw new NotExistStorageException(uuid);
         }
         return storage[index];
     }
