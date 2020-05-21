@@ -2,7 +2,9 @@ package com.khmel.wedapp.model;
 
 import java.util.UUID;
 
-public class Resume {
+public class Resume implements Comparable<Resume> {
+
+    // Unique identifier
     private final String uuid;
 
     public Resume() {
@@ -37,5 +39,8 @@ public class Resume {
         return uuid;
     }
 
-
+    @Override
+    public int compareTo(Resume o) {
+        return uuid.compareTo(o.uuid);
+    }
 }

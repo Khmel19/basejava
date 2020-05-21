@@ -2,6 +2,7 @@ package com.khmel.wedapp;
 
 import com.khmel.wedapp.model.Resume;
 import com.khmel.wedapp.storage.ArrayStorage;
+import com.khmel.wedapp.storage.SortedArrayStorage;
 import com.khmel.wedapp.storage.Storage;
 
 import java.io.BufferedReader;
@@ -9,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class MainArray {
-    private final static Storage ARRAY_STORAGE = new ArrayStorage();
+    private final static Storage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
