@@ -1,1 +1,1 @@
-# basejava
+My first solo Java-project
